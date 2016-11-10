@@ -7,8 +7,8 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args){
-        int no_process = 5;
-        int no_resource = 3;
+        int no_process;
+        int no_resource;
         int choice;
         double[] available;
         Matrix allocation;
@@ -24,10 +24,10 @@ public class Main {
         
             if(choice == 1){
                 System.out.println("===================Deadlock Avoidance===================");
-//                System.out.println("Number of PROCESS/ES: ");
-//                no_process = sc.nextInt();
-//                System.out.println("Number of RESOURCE/S: ");
-//                no_resource = sc.nextInt();
+                System.out.println("Number of PROCESS/ES: ");
+                no_process = sc.nextInt();
+                System.out.println("Number of RESOURCE/S: ");
+                no_resource = sc.nextInt();
 
                 available = getAvailable(sc, no_resource);
                 allocation = getAllocation(sc, no_process, no_resource);
@@ -88,15 +88,15 @@ public class Main {
     }
     
     public static double[] getAvailable(Scanner sc, int no_resource){
-//        double [] available = new double [no_resource];
+        double [] available = new double [no_resource];
         //test inputs for AVOIDANCE
 //        double [] available = {10, 5, 7};
         //TEST INPUTS FOR PREVENTION
-        double [] available = {10};
-//        for (int i = 0; i < no_resource; i++){
-//            System.out.println("Available for RESOURCE " + i + ": ");
-//            available[i] = sc.nextDouble();
-//        }
+//        double [] available = {10};
+        for (int i = 0; i < no_resource; i++){
+            System.out.println("Available for RESOURCE " + i + ": ");
+            available[i] = sc.nextDouble();
+        }
         
         return available;
     }
@@ -107,17 +107,16 @@ public class Main {
         //TEST INPUTS FOR AVOIDANCE
 //        double [][] alloc_vals = {{0,1,0}, {2,0,0}, {3,0,2}, {2,1,1}, {0,0,2}};
         //TEST INPUTS FOR PREVENTION
-        double [][] alloc_vals = {{0}, {2}, {3}, {2}, {0}};
+//        double [][] alloc_vals = {{0}, {2}, {3}, {2}, {0}};     
+//        allocation = new Matrix(alloc_vals);
         
-        allocation = new Matrix(alloc_vals);
-        
-//        for (int row = 0; row < no_process; row++) {
-//            for (int col = 0; col < no_resource; col++) {
-//                System.out.println("PROCESS " + row + ": Allocate RESOURCE " + col);
-//                double temp= sc.nextDouble();
-//                allocation.set(row, col, temp);
-//            }
-//        }
+        for (int row = 0; row < no_process; row++) {
+            for (int col = 0; col < no_resource; col++) {
+                System.out.println("PROCESS " + row + ": Allocate RESOURCE " + col);
+                double temp= sc.nextDouble();
+                allocation.set(row, col, temp);
+            }
+        }
         
         return allocation;
     }
@@ -128,17 +127,17 @@ public class Main {
         //TEST INPUTS FOR AVOIDANCE
 //        double [][] max_vals = {{7,5,3}, {3,2,2}, {9,0,2}, {2,2,2}, {4,3,3}};
         //TEST INPUTS FOR PREVENTION
-        double [][] max_vals = {{7}, {3}, {9}, {2}, {4}};
-        maxAllocation = new Matrix(max_vals);
+//        double [][] max_vals = {{7}, {3}, {9}, {2}, {4}};
+//        maxAllocation = new Matrix(max_vals);
         
         //max allocation input
-//        for (int row = 0; row < no_process; row++) {
-//            for (int col = 0; col < no_resource; col++) {
-//                System.out.println("RESOURCE" + col + ": Max allocation for P" + row);
-//                double temp= sc.nextInt();
-//                maxAllocation.set(row, col, temp);
-//            }
-//        }
+        for (int row = 0; row < no_process; row++) {
+            for (int col = 0; col < no_resource; col++) {
+                System.out.println("RESOURCE" + col + ": Max allocation for P" + row);
+                double temp= sc.nextInt();
+                maxAllocation.set(row, col, temp);
+            }
+        }
         
         return maxAllocation;
     }
