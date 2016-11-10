@@ -7,8 +7,8 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args){
-        int no_process = 5;
-        int no_resource = 3;
+        int no_process;
+        int no_resource;
         int choice;
         double[] available;
         Matrix allocation;
@@ -32,17 +32,17 @@ public class Main {
                 available = getAvailable(sc, no_resource);
                 allocation = getAllocation(sc, no_process, no_resource);
                 maxAllocation = getMaxAllocation(sc, no_process, no_resource);
-                
-                
-                
+
                 bankers = new Bankers(no_process, no_resource, allocation, maxAllocation, available);
-                
+
+                //PRINTING OF EVERYTHING
                 System.out.println("Allocation:");
                 bankers.allocation.print(no_resource, 0);
                 System.out.println("Maximum Demand:");
                 bankers.maxAllocation.print(no_resource, 0);
                 System.out.println("Need Resources:");
                 bankers.needed.print(no_resource, 0);
+
                 System.out.print("AVAILABLE: ");
                 for (int i = 0; i < no_resource; i++){
                     System.out.print(bankers.available[i] + " ");
@@ -55,10 +55,10 @@ public class Main {
             }
             else if(choice == 2){
                 System.out.println("===================Deadlock Avoidance===================");
-//                System.out.println("Number of PROCESS/ES: ");
-//                no_process = sc.nextInt();
-//                System.out.println("Number of RESOURCE/S: ");
-//                no_resource = sc.nextInt();
+                System.out.println("Number of PROCESS/ES: ");
+                no_process = sc.nextInt();
+                System.out.println("Number of RESOURCE/S: ");
+                no_resource = sc.nextInt();
 
                 available = getAvailable(sc, no_resource);
                 allocation = getAllocation(sc, no_process, no_resource);
@@ -67,6 +67,7 @@ public class Main {
                 bankers = new Bankers(no_process, no_resource, allocation, maxAllocation, available);
                 int c = 0;
 
+                //OPTION FOR A PROCESS REQUEST
                 do {
                     if (c == 1){
                         int p_id;
@@ -82,13 +83,15 @@ public class Main {
 
                         bankers.processRequest(p_id, requestedResources);
                     }
-                    //print
+
+                    //PRINTING OF EVERYTHING
                     System.out.println("Allocation:");
                     bankers.allocation.print(no_resource, 0);
                     System.out.println("Max Allocation:");
                     bankers.maxAllocation.print(no_resource, 0);
                     System.out.println("Need Allocation:");
                     bankers.needed.print(no_resource, 0);
+
                     System.out.print("AVAILABLE: ");
                     for (int i = 0; i < no_resource; i++) {
                         System.out.print(bankers.available[i] + " ");
@@ -100,25 +103,26 @@ public class Main {
 
                     System.out.println("Want to REQUEST A RESOURCE?\n1. YES\n2. NO");
                     c = sc.nextInt();
-
                 }while (c < 2 && c > 0);
+
             }
             else if (choice == 3){
                 break;
             }
-        }while (choice < 3);
+
+        }while (choice < 3 && choice > 0);
     }
     
     public static double[] getAvailable(Scanner sc, int no_resource){
-//        double [] available = new double [no_resource];
+        double [] available = new double [no_resource];
         //test inputs for AVOIDANCE
-        double [] available = {10, 5, 7};
+//        double [] available = {10, 5, 7};
         //TEST INPUTS FOR PREVENTION
 //        double [] available = {10};
-//        for (int i = 0; i < no_resource; i++){
-//            System.out.println("Available for RESOURCE " + i + ": ");
-//            available[i] = sc.nextDouble();
-//        }
+        for (int i = 0; i < no_resource; i++){
+            System.out.println("Available for RESOURCE " + i + ": ");
+            available[i] = sc.nextDouble();
+        }
         
         return available;
     }
@@ -127,18 +131,18 @@ public class Main {
         Matrix allocation = new Matrix(no_process, no_resource);
         //allocation
         //TEST INPUTS FOR AVOIDANCE
-        double [][] alloc_vals = {{0,1,0}, {2,0,0}, {3,0,2}, {2,1,1}, {0,0,2}};
+//        double [][] alloc_vals = {{0,1,0}, {2,0,0}, {3,0,2}, {2,1,1}, {0,0,2}};
         //TEST INPUTS FOR PREVENTION
 //        double [][] alloc_vals = {{0}, {2}, {3}, {2}, {0}};     
-        allocation = new Matrix(alloc_vals);
+//        allocation = new Matrix(alloc_vals);
 
-//        for (int row = 0; row < no_process; row++) {
-//            for (int col = 0; col < no_resource; col++) {
-//                System.out.println("PROCESS " + row + ": Allocate RESOURCE " + col);
-//                double temp= sc.nextDouble();
-//                allocation.set(row, col, temp);
-//            }
-//        }
+        for (int row = 0; row < no_process; row++) {
+            for (int col = 0; col < no_resource; col++) {
+                System.out.println("PROCESS " + row + ": Allocate RESOURCE " + col);
+                double temp= sc.nextDouble();
+                allocation.set(row, col, temp);
+            }
+        }
         
         return allocation;
     }
@@ -147,19 +151,19 @@ public class Main {
         Matrix maxAllocation = new Matrix(no_process, no_resource);
         
         //TEST INPUTS FOR AVOIDANCE
-        double [][] max_vals = {{7,5,3}, {3,2,2}, {9,0,2}, {2,2,2}, {4,3,3}};
+//        double [][] max_vals = {{7,5,3}, {3,2,2}, {9,0,2}, {2,2,2}, {4,3,3}};
         //TEST INPUTS FOR PREVENTION
 //        double [][] max_vals = {{7}, {3}, {9}, {2}, {4}};
-        maxAllocation = new Matrix(max_vals);
+//        maxAllocation = new Matrix(max_vals);
         
         //max allocation input
-//        for (int row = 0; row < no_process; row++) {
-//            for (int col = 0; col < no_resource; col++) {
-//                System.out.println("RESOURCE" + col + ": Max allocation for P" + row);
-//                double temp= sc.nextInt();
-//                maxAllocation.set(row, col, temp);
-//            }
-//        }
+        for (int row = 0; row < no_process; row++) {
+            for (int col = 0; col < no_resource; col++) {
+                System.out.println("RESOURCE" + col + ": Max allocation for P" + row);
+                double temp= sc.nextInt();
+                maxAllocation.set(row, col, temp);
+            }
+        }
         
         return maxAllocation;
     }
