@@ -13,12 +13,12 @@ java -jar Bankers_Algorithm.jar
   2. DEADLOCK AVOIDANCE  
 2. Then, it will ask for the required inputs of the choice made.  
 For DEADLOCK PREVENTION  
-+ The number of processes (NOTE: THE Name of the processes are the input NUMBER ORDER e.g. first process input will take the name of Process 1, second process input will take the name Process 2 and so on.)  
-+ The value of the available resources  
-+ The time for each process  
+  + The number of processes (NOTE: THE Name of the processes are the input NUMBER ORDER e.g. first process input will take the name of Process 1, second process input will take the name Process 2 and so on.)  
+  + The value of the available resources  
+  + The time for each process  
 For DEADLOCK AVOIDANCE  
-+ The number of processes and resources  
-+ The available resiurces  
-+ The process details for each process: allocation and maximum demand  
-+ The new request details: process ID and request for resources  
+  + The number of processes and resources  
+  + The available resiurces  
+  + The process details for each process: allocation and maximum demand  
+  + The new request details: process ID and request for resources  
 
