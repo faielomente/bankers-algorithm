@@ -20,5 +20,5 @@ java -jar Bankers_Algorithm.jar
   *The number of processes and resources
   *The available resources
   *The process details for each process: allocation and maximum demand
-  *The new request details: process ID and request for resources  
+  *The new request details: process ID and request for resources
 
