@@ -9,8 +9,10 @@
 *.xml
 *.mf
 *.iml
+*.properties
 
 # Folders #
+dist/
 out/
 build/
 .DS_Store
