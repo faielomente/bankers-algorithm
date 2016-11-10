@@ -62,7 +62,7 @@ public class Bankers {
 
         //Loops through all of the processes
         do {
-            System.out.println("PROCESSES: " + processes.toString());
+//            System.out.println("PROCESSES: " + processes.toString());
 
             double [] current = getOneRow(this.needed, processes.peek());
             int i = 0;
@@ -82,11 +82,12 @@ public class Bankers {
                     this.available[j] += this.allocation.get(r, j);
                 }
             }
-
-            System.out.println("Available Resourcess: ");
-            for (int j = 0; j < this.no_resource; j++){
-                System.out.println(this.available[j]);
-            }
+            
+            //PRINT AVAILABLE RESOURCES
+//            System.out.println("Available Resourcess: ");
+//            for (int j = 0; j < this.no_resource; j++){
+//                System.out.println(this.available[j]);
+//            }
 
             //check if the sequence available is still safe
             stillSafe = isSafe(processes);

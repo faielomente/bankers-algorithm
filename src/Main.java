@@ -19,39 +19,10 @@ public class Main {
 
         System.out.println("===================BANKER'S ALGORITHM===================");
         do {
-            System.out.println("\n\nChoose:\n1. Deadlock AVOIDANCE\n2. Deadlock PREVENTION\n3. Close");
+            System.out.println("\n\nChoose:\n1. Deadlock PREVENTION\n2. Deadlock AVOIDANCE\n3. Close");
             choice = sc.nextInt();
         
             if(choice == 1){
-                System.out.println("===================Deadlock Avoidance===================");
-                System.out.println("Number of PROCESS/ES: ");
-                no_process = sc.nextInt();
-                System.out.println("Number of RESOURCE/S: ");
-                no_resource = sc.nextInt();
-
-                available = getAvailable(sc, no_resource);
-                allocation = getAllocation(sc, no_process, no_resource);
-                maxAllocation = getMaxAllocation(sc, no_process, no_resource);
-
-                bankers = new Bankers(no_process, no_resource, allocation, maxAllocation, available);
-
-                //print
-                System.out.println("Allocation:");
-                bankers.allocation.print(no_resource, 0);
-                System.out.println("Max Allocation:");
-                bankers.maxAllocation.print(no_resource, 0);
-                System.out.println("Need Allocation:");
-                bankers.needed.print(no_resource, 0);
-                System.out.print("AVAILABLE: ");
-                for (int i = 0; i < no_resource; i++){
-                    System.out.print(bankers.available[i] + " ");
-                }
-                System.out.println("\n");
-
-                ArrayList safeSeq = bankers.generateSafeSequence();
-                System.out.println("\nSAFE SEQUENCE: " + safeSeq.toString());
-            }
-            else if(choice == 2){
                 System.out.println("===================Deadlock Prevention===================");
                 System.out.println("NOTE: In Prevention simulation, TIME is your RESOURCE 0.");
                 System.out.println("Number of PROCESS/ES: ");
@@ -66,6 +37,36 @@ public class Main {
                 
                 bankers = new Bankers(no_process, no_resource, allocation, maxAllocation, available);
                 
+                System.out.println("Allocation:");
+                bankers.allocation.print(no_resource, 0);
+                System.out.println("Maximum Demand:");
+                bankers.maxAllocation.print(no_resource, 0);
+                System.out.println("Need Resources:");
+                bankers.needed.print(no_resource, 0);
+                System.out.print("AVAILABLE: ");
+                for (int i = 0; i < no_resource; i++){
+                    System.out.print(bankers.available[i] + " ");
+                }
+                System.out.println("\n");
+
+                ArrayList safeSeq = bankers.generateSafeSequence();
+                System.out.println("\nSAFE SEQUENCE: " + safeSeq.toString());
+                
+            }
+            else if(choice == 2){
+                System.out.println("===================Deadlock Avoidance===================");
+                System.out.println("Number of PROCESS/ES: ");
+                no_process = sc.nextInt();
+                System.out.println("Number of RESOURCE/S: ");
+                no_resource = sc.nextInt();
+
+                available = getAvailable(sc, no_resource);
+                allocation = getAllocation(sc, no_process, no_resource);
+                maxAllocation = getMaxAllocation(sc, no_process, no_resource);
+
+                bankers = new Bankers(no_process, no_resource, allocation, maxAllocation, available);
+
+                //print
                 System.out.println("Allocation:");
                 bankers.allocation.print(no_resource, 0);
                 System.out.println("Max Allocation:");
