@@ -2,7 +2,7 @@
 
 **When the program runs:**
 1.To run the file,
-        *On TERMINAL USING THE .jar file:*
+		*On TERMINAL USING THE .jar file:*
 		Run this command inside the Bankers_Algorithm/dist directory
 		```
 		java -jar Bankers_Algorithm.jar
