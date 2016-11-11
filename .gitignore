@@ -7,9 +7,11 @@
 *.war
 *.ear
 *.xml
-*.mf
+*.iml
+*.properties
 
 # Folders #
+out/
 build/
 .DS_Store
 nbproject/

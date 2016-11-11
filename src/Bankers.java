@@ -38,7 +38,7 @@ public class Bankers {
      * @return 
      */
     private Matrix calcNeed(Matrix alloc, Matrix maxAlloc){
-        Matrix difference = new Matrix(alloc.getRowDimension(), alloc.getColumnDimension());
+        Matrix difference;
         
         difference = maxAlloc.minus(alloc);
         
@@ -52,12 +52,17 @@ public class Bankers {
     public ArrayList generateSafeSequence(){
         Queue<Integer> processes = new LinkedList();
         ArrayList safeSequence = new ArrayList();
-        double [] tmp = new double [no_resource];
+        double [] work = new double[this.no_resource];
         boolean stillSafe;
         
         //populate priority queue with the contents of the "needed" matrix
         for (int i = 0; i < this.no_process; i++){
             processes.add(i);
+        }
+
+        //creates a copy of the AVAILABLE ARRAY values
+        for (int i = 0; i < this.no_resource; i++){
+            work[i] = this.available[i];
         }
 
         //Loops through all of the processes
@@ -68,7 +73,7 @@ public class Bankers {
             int i = 0;
 
             for (; i < this.no_resource; i++) {
-                if (current[i] > this.available[i]){
+                if (current[i] > work[i]){
                     processes.add(processes.remove());
                     break;
                 }
@@ -79,18 +84,18 @@ public class Bankers {
                 safeSequence.add(r);
 
                 for (int j = 0; j < this.no_resource; j++) {
-                    this.available[j] += this.allocation.get(r, j);
+                    work[j] += this.allocation.get(r, j);
                 }
             }
             
             //PRINT AVAILABLE RESOURCES
-//            System.out.println("Available Resourcess: ");
-//            for (int j = 0; j < this.no_resource; j++){
-//                System.out.println(this.available[j]);
-//            }
+            System.out.println("Available Resourcess: ");
+            for (int j = 0; j < this.no_resource; j++){
+                System.out.println(work[j] + "      " + this.available[j]);
+            }
 
             //check if the sequence available is still safe
-            stillSafe = isSafe(processes);
+            stillSafe = isSafe(processes, work);
             if (stillSafe == false){
                 System.out.println("DEADLOCK IS POSSIBLE.");
                 safeSequence = new ArrayList();
@@ -130,14 +135,14 @@ public class Bankers {
      * @param processes
      * @return 
      */
-    private boolean isSafe(Queue processes){
+    private boolean isSafe(Queue processes, double[] work){
         Object[] p = processes.toArray();
         ArrayList cantAccommodate = new ArrayList();
         
         if(processes.isEmpty() == false){
             for(int i = 0; i < p.length; i++){
                 for (int j = 0; j < this.no_resource; j++) {
-                    if (this.needed.get((int)p[i],j) > this.available[j]){
+                    if (this.needed.get((int)p[i],j) > work[j]){
                         cantAccommodate.add((int)p[i]);
                         break;
                     }
@@ -183,5 +188,15 @@ public class Bankers {
 //        }
 
         return av;
+    }
+
+    public void processRequest(int p_id, double[] requested){
+
+        for (int i = 0; i < this.no_resource; i++) {
+            double temp = this.allocation.get(p_id, i) + requested[i];
+            this.allocation.set(p_id, i, temp);
+            this.needed = calcNeed(this.allocation, this.maxAllocation);
+            this.available[i] -= requested[i];
+        }
     }
 }
