@@ -54,39 +54,62 @@ public class Main {
                 
             }
             else if(choice == 2){
-                System.out.println("===================Deadlock Avoidance===================");
-//                System.out.println("Number of PROCESS/ES: ");
-//                no_process = sc.nextInt();
-//                System.out.println("Number of RESOURCE/S: ");
-//                no_resource = sc.nextInt();
+                int c = 0;
+                do {
+                    System.out.println("===================Deadlock Avoidance===================");
+                    if(c == 0){
+//                        System.out.println("Number of PROCESS/ES: ");
+//                        no_process = sc.nextInt();
+//                        System.out.println("Number of RESOURCE/S: ");
+//                        no_resource = sc.nextInt();
+                        
+                        available = getAvailable(sc, no_resource);
+                        allocation = getAllocation(sc, no_process, no_resource);
+                        maxAllocation = getMaxAllocation(sc, no_process, no_resource);
 
-                available = getAvailable(sc, no_resource);
-                allocation = getAllocation(sc, no_process, no_resource);
-                maxAllocation = getMaxAllocation(sc, no_process, no_resource);
+                        bankers = new Bankers(no_process, no_resource, allocation, maxAllocation, available);
+                    }
+                    else if (c == 1){
+                        int p;
+                        System.out.println("Requesting PROCESSES NUMBER: ");
+                        p = sc.nextInt();
+                        double [] requestedResources = new double [no_resource];
+                        for(int i = 0; i < no_resource; i++){
+                            System.out.println("Number of REQUESTED RESOURCES: ");
+                            requestedResources[i] = sc.nextDouble();
+                        }
+                        
+                        
+                    }
 
-                bankers = new Bankers(no_process, no_resource, allocation, maxAllocation, available);
+                    //print
+                    System.out.println("Allocation:");
+                    bankers.allocation.print(no_resource, 0);
+                    System.out.println("Max Allocation:");
+                    bankers.maxAllocation.print(no_resource, 0);
+                    System.out.println("Need Allocation:");
+                    bankers.needed.print(no_resource, 0);
+                    System.out.print("AVAILABLE: ");
+                    for (int i = 0; i < no_resource; i++){
+                        System.out.print(bankers.available[i] + " ");
+                    }
+                    System.out.println("\n");
 
-                //print
-                System.out.println("Allocation:");
-                bankers.allocation.print(no_resource, 0);
-                System.out.println("Max Allocation:");
-                bankers.maxAllocation.print(no_resource, 0);
-                System.out.println("Need Allocation:");
-                bankers.needed.print(no_resource, 0);
-                System.out.print("AVAILABLE: ");
-                for (int i = 0; i < no_resource; i++){
-                    System.out.print(bankers.available[i] + " ");
-                }
-                System.out.println("\n");
-
-                ArrayList safeSeq = bankers.generateSafeSequence();
-                System.out.println("\nSAFE SEQUENCE: " + safeSeq.toString());
+                    ArrayList safeSeq = bankers.generateSafeSequence();
+                    System.out.println("\nSAFE SEQUENCE: " + safeSeq.toString());
+                    
+                    System.out.println("Request RESOURCES?\n1. YES\t2. NO\n");
+                    c = sc.nextInt();
+                
+                }while(c < 2 && c > 0);
             }
             else if (choice == 3){
                 break;
             }
-        }while (choice < 3);
+        }while (choice < 3 && choice > 0);
     }
+    
+    public static 
     
     public static double[] getAvailable(Scanner sc, int no_resource){
 //        double [] available = new double [no_resource];
